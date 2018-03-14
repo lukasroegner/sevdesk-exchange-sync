@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SevDeskExchangeSync.Services.Exchange\SevDeskExchangeSync.Services.Exchange.csproj" />
+    <ProjectReference Include="..\SevDeskExchangeSync.Services.SevDesk\SevDeskExchangeSync.Services.SevDesk.csproj" />
+  </ItemGroup>
+</Project>
