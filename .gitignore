@@ -290,5 +290,6 @@ __pycache__/
 # Platform-specific files
 .DS_Store
 
-# Prevent unintentional commit of configuration
+# Prevent unintentional commit of configuration and synchronization state
 Configuration.json
+ContactSyncStates.json
