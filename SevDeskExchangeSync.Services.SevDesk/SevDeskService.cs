@@ -306,9 +306,9 @@ namespace SevDeskExchangeSync.Services.SevDesk
 
             // Sets the contact specific properties
             contact.Id = model.id;
-            contact.CreationDateTime = DateTime.Parse(model.create);
-            contact.UpdateDateTime = DateTime.Parse(model.update);
-            contact.Category = this.GetCategory(model.category) as ContactCategory;
+            contact.CreationDateTime = string.IsNullOrWhiteSpace(model.create) ? DateTime.Now : DateTime.Parse(model.create);
+            contact.UpdateDateTime = string.IsNullOrWhiteSpace(model.update) ? DateTime.Now :DateTime.Parse(model.update);
+            contact.Category = model.category == null ? null : this.GetCategory(model.category) as ContactCategory;
             contact.CustomerNumber = model.customerNumber;
             contact.Description = model.description;
 
@@ -406,6 +406,8 @@ namespace SevDeskExchangeSync.Services.SevDesk
         /// <returns>Returns the updated contact.</returns>
         public async Task<Contact> UpdateContactAsync(string id, ContactOptions options)
         {
+            string result = null;
+            Result<Models.Contacts.Contact> result2;
             try
             {
                 // Initializes the key value pairs
@@ -454,6 +456,12 @@ namespace SevDeskExchangeSync.Services.SevDesk
                 HttpResponseMessage response = await httpClient.PutAsync($"{this.apiUri}/Contact/{id}?token={this.Token}", new FormUrlEncodedContent(values));
 
                 // Returns the updated contact
+                result = await response.Content.ReadAsStringAsync();
+                result2 = JsonConvert.DeserializeObject<Result<Models.Contacts.Contact>>(await response.Content.ReadAsStringAsync());
+                if (result2.objects.familyname == "Danneberg")
+                {
+                    
+                }
                 return this.GetContact(JsonConvert.DeserializeObject<Result<Models.Contacts.Contact>>(await response.Content.ReadAsStringAsync()).objects);
             }
             catch (Exception e)

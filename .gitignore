@@ -293,3 +293,6 @@ __pycache__/
 # Prevent unintentional commit of configuration and synchronization state
 Configuration.json
 ContactSyncStates.json
+
+# Prevent unintentional commit of Azure tools
+run.cmd
