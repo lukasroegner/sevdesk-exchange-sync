@@ -406,8 +406,6 @@ namespace SevDeskExchangeSync.Services.SevDesk
         /// <returns>Returns the updated contact.</returns>
         public async Task<Contact> UpdateContactAsync(string id, ContactOptions options)
         {
-            string result = null;
-            Result<Models.Contacts.Contact> result2;
             try
             {
                 // Initializes the key value pairs
@@ -456,12 +454,6 @@ namespace SevDeskExchangeSync.Services.SevDesk
                 HttpResponseMessage response = await httpClient.PutAsync($"{this.apiUri}/Contact/{id}?token={this.Token}", new FormUrlEncodedContent(values));
 
                 // Returns the updated contact
-                result = await response.Content.ReadAsStringAsync();
-                result2 = JsonConvert.DeserializeObject<Result<Models.Contacts.Contact>>(await response.Content.ReadAsStringAsync());
-                if (result2.objects.familyname == "Danneberg")
-                {
-                    
-                }
                 return this.GetContact(JsonConvert.DeserializeObject<Result<Models.Contacts.Contact>>(await response.Content.ReadAsStringAsync()).objects);
             }
             catch (Exception e)
